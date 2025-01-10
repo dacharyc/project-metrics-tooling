@@ -1,4 +1,7 @@
-// Set options as a parameter, environment variable, or rc file.
-// eslint-disable-next-line no-global-assign
-require = require("esm")(module/* , options */)
-module.exports = require("./main.js")
+import {
+    getGitHubMetrics
+} from "./get-github-metrics.js";
+import { addMetricsToAtlas } from "./write-to-db.js";
+
+const metricsDoc = await getGitHubMetrics("mongodb", "docs-notebooks");
+await addMetricsToAtlas(metricsDoc);
